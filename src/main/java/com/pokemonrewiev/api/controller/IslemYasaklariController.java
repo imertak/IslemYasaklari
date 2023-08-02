@@ -51,5 +51,17 @@ public class IslemYasaklariController {
         }
     }
 
+    @PutMapping("/unvan-update/{id}")
+    public String updateIslemYasaklari(@RequestBody String unvan, @PathVariable int id){
+        try {
+            islemYasaklariService.updateIslemYasaklari(unvan,id);
+            return "Update Başarılı";
+        }catch (Exception e){
+            return "Update Başarısız";
+        }
+
+
+    }
+
 
 }

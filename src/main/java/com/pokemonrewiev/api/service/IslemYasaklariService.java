@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -30,6 +31,16 @@ public class IslemYasaklariService {
     public List<IslemYasaklariDto> getIslemYasaklari(){
         List<IslemYasaklari> islemYasaklariList = islemYasaklariRepository.findAll();
         return islemYasaklariList.stream().map(y -> islemYasaklariMapper.maptoDto(y)).collect(Collectors.toList());
+    }
+
+    public IslemYasaklari saveIslemYasaklari(IslemYasaklari islemYasaklari) {
+        return islemYasaklariRepository.save(islemYasaklari);
+    }
+
+    public void updateIslemYasaklari(String unvan ,int id){
+        IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
+        islemYasaklari.setUnvan(unvan);
+        islemYasaklariRepository.save(islemYasaklari);
     }
 
 }
