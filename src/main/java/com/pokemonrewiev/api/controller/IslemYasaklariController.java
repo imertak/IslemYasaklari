@@ -17,16 +17,18 @@ public class IslemYasaklariController {
 
     IslemYasaklariService islemYasaklariService;
 
+
     @Autowired
     public IslemYasaklariController(IslemYasaklariService islemYasaklariService) {
         this.islemYasaklariService = islemYasaklariService;
     }
 
-
     @GetMapping()
     public String hello(){
         return "MKK İŞLEM YASAKLARI...";
     }
+
+
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,9 +61,20 @@ public class IslemYasaklariController {
         }catch (Exception e){
             return "Update Başarısız";
         }
-
-
     }
+
+    @DeleteMapping("delete/{id}")
+    public String deleteIslemYasaklari(@RequestBody String onay, @PathVariable int id){
+        try {
+            //Postman'den "onay" text'i gelmeden silmez
+            islemYasaklariService.deleteIslemYasaklari(onay, id);
+            return "Delete Başarılı";
+        }catch (Exception e){
+            return "Delete Başarısız";
+        }
+    }
+
+
 
 
 }

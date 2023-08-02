@@ -1,13 +1,18 @@
 package com.pokemonrewiev.api.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
 import com.pokemonrewiev.api.mapper.IslemYasaklariMapper;
 import com.pokemonrewiev.api.repository.IslemYasaklariRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -16,6 +21,7 @@ import java.util.stream.Collectors;
 public class IslemYasaklariService {
     IslemYasaklariRepository islemYasaklariRepository;
     IslemYasaklariMapper islemYasaklariMapper;
+    
 
     @Autowired
     public IslemYasaklariService(IslemYasaklariRepository islemYasaklariRepository, IslemYasaklariMapper islemYasaklariMapper) {
@@ -23,7 +29,8 @@ public class IslemYasaklariService {
         this.islemYasaklariMapper = islemYasaklariMapper;
     }
 
-
+    
+    
     public List<IslemYasaklari> createIslemYasaklari(List<IslemYasaklari> yasaklar){
         return islemYasaklariRepository.saveAll(yasaklar);
     }
@@ -41,6 +48,14 @@ public class IslemYasaklariService {
         IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
         islemYasaklari.setUnvan(unvan);
         islemYasaklariRepository.save(islemYasaklari);
+    }
+
+    public void deleteIslemYasaklari(String onay, int id){
+        //Postman'den "onay" text'i gelmeden silmez
+        if(onay.equals("onay")){
+            IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
+            islemYasaklariRepository.delete(islemYasaklari);
+        }
     }
 
 }
