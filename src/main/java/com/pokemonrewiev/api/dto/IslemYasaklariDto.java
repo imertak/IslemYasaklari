@@ -1,6 +1,7 @@
 package com.pokemonrewiev.api.dto;
 
 import lombok.Data;
+import org.springframework.http.HttpStatusCode;
 
 @Data
 public class IslemYasaklariDto {

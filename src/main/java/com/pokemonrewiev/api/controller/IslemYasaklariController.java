@@ -5,6 +5,7 @@ import com.pokemonrewiev.api.entity.IslemYasaklari;
 import com.pokemonrewiev.api.service.IslemYasaklariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,6 @@ public class IslemYasaklariController {
     public String hello(){
         return "MKK İŞLEM YASAKLARI...";
     }
-
 
 
     @PostMapping("/create")
@@ -63,7 +63,7 @@ public class IslemYasaklariController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteIslemYasaklari(@RequestBody String onay, @PathVariable int id){
         try {
             //Postman'den "onay" text'i gelmeden silmez
@@ -73,6 +73,13 @@ public class IslemYasaklariController {
             return "Delete Başarısız";
         }
     }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<IslemYasaklariDto> detailIslemYasaklari(@PathVariable int id){
+        return ResponseEntity.ok(islemYasaklariService.getDetail(id));
+    }
+
+
 
 
 
