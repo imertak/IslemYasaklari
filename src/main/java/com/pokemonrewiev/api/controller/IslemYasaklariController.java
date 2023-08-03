@@ -1,13 +1,15 @@
 package com.pokemonrewiev.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pokemonrewiev.api.client.IslemYasaklariClient;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
 import com.pokemonrewiev.api.service.IslemYasaklariService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class IslemYasaklariController {
 
     IslemYasaklariService islemYasaklariService;
 
-
     @Autowired
     public IslemYasaklariController(IslemYasaklariService islemYasaklariService) {
         this.islemYasaklariService = islemYasaklariService;
@@ -27,6 +28,20 @@ public class IslemYasaklariController {
     @GetMapping()
     public String hello(){
         return "MKK İŞLEM YASAKLARI...";
+    }
+
+    @GetMapping("/tum-yasaklar")
+    public ResponseEntity<List<IslemYasaklariDto>> getWebIslemYasaklari(){
+        return new ResponseEntity<List<IslemYasaklariDto>>(islemYasaklariService.getWebIslemYasaklari(),HttpStatus.OK);
+    }
+
+    @GetMapping("/get-web")
+    public ResponseEntity getByWeb() throws JsonProcessingException {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://ws.spk.gov.tr/IdariYaptirimlar/api/IslemYasaklari"; // Harici sitenin API URL'si
+        String jsonResponse = restTemplate.getForObject(url, String.class);
+
+        return ResponseEntity.ok(jsonResponse);
     }
 
 

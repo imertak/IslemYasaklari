@@ -2,6 +2,7 @@ package com.pokemonrewiev.api.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pokemonrewiev.api.client.IslemYasaklariClient;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
 import com.pokemonrewiev.api.mapper.IslemYasaklariMapper;
@@ -12,10 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -23,16 +21,22 @@ import java.util.stream.Collectors;
 public class IslemYasaklariService {
     IslemYasaklariRepository islemYasaklariRepository;
     IslemYasaklariMapper islemYasaklariMapper;
+    IslemYasaklariClient islemYasaklariClient;
     
 
     @Autowired
-    public IslemYasaklariService(IslemYasaklariRepository islemYasaklariRepository, IslemYasaklariMapper islemYasaklariMapper) {
+    public IslemYasaklariService(IslemYasaklariRepository islemYasaklariRepository, IslemYasaklariMapper islemYasaklariMapper, IslemYasaklariClient islemYasaklariClient) {
         this.islemYasaklariRepository = islemYasaklariRepository;
         this.islemYasaklariMapper = islemYasaklariMapper;
+        this.islemYasaklariClient = islemYasaklariClient;
     }
 
-    
-    
+    public List<IslemYasaklariDto> getWebIslemYasaklari() {
+        List<IslemYasaklariDto> islemYasaklariDtoList = new ArrayList<>();
+        islemYasaklariDtoList =  islemYasaklariClient.getWebIslemYasaklari();
+        return islemYasaklariDtoList;
+    }
+
     public List<IslemYasaklari> createIslemYasaklari(List<IslemYasaklari> yasaklar){
         return islemYasaklariRepository.saveAll(yasaklar);
     }
@@ -66,5 +70,7 @@ public class IslemYasaklariService {
         islemYasaklariDto=islemYasaklariMapper.maptoDto(islemYasaklari);
         return islemYasaklariDto;
     }
+
+
 
 }
