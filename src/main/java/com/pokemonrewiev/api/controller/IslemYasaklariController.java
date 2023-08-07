@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 
+//Deneme 1234586 
+
 @RestController
 @RequestMapping("/api")
 public class IslemYasaklariController {
