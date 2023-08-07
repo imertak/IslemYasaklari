@@ -21,12 +21,12 @@ public class IslemYasaklariMapper {
 
     public IslemYasaklari mapToEntity(IslemYasaklariDto islemYasaklariDto){
         IslemYasaklari islemYasaklari = new IslemYasaklari();
-        islemYasaklari.setUnvan(islemYasaklari.getUnvan());
-        islemYasaklari.setMkkSicilNo(islemYasaklari.getMkkSicilNo());
-        islemYasaklari.setPay(islemYasaklari.getPay());
-        islemYasaklari.setPayKodu(islemYasaklari.getPayKodu());
-        islemYasaklari.setKurulKararTarihi(islemYasaklari.getKurulKararTarihi());
-        islemYasaklari.setKurulKararNo(islemYasaklari.getKurulKararNo());
+        islemYasaklari.setUnvan(islemYasaklariDto.getUnvan());
+        islemYasaklari.setMkkSicilNo(islemYasaklariDto.getMkkSicilNo());
+        islemYasaklari.setPay(islemYasaklariDto.getPay());
+        islemYasaklari.setPayKodu(islemYasaklariDto.getPayKodu());
+        islemYasaklari.setKurulKararTarihi(islemYasaklariDto.getKurulKararTarihi());
+        islemYasaklari.setKurulKararNo(islemYasaklariDto.getKurulKararNo());
         return islemYasaklari;
     }
 }

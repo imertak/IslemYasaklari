@@ -13,7 +13,6 @@ import java.util.List;
 
 @FeignClient(name = "get-islemYasaklari", url = "https://ws.spk.gov.tr/IdariYaptirimlar/api")
 public interface IslemYasaklariClient {
-
     @RequestMapping(method = RequestMethod.GET, value="/IslemYasaklari", produces = MediaType.APPLICATION_JSON_VALUE) //produces = "application/json"
     List<IslemYasaklariDto> getWebIslemYasaklari();
 }

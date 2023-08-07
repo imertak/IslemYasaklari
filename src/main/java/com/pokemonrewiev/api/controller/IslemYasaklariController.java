@@ -1,10 +1,10 @@
 package com.pokemonrewiev.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.pokemonrewiev.api.client.IslemYasaklariClient;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
-import com.pokemonrewiev.api.service.IslemYasaklariService;
+import com.pokemonrewiev.api.service.impl.IslemYasaklariServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class IslemYasaklariController {
 
-    IslemYasaklariService islemYasaklariService;
+    IslemYasaklariServiceImpl islemYasaklariService;
 
     @Autowired
-    public IslemYasaklariController(IslemYasaklariService islemYasaklariService) {
+    public IslemYasaklariController(IslemYasaklariServiceImpl islemYasaklariService) {
         this.islemYasaklariService = islemYasaklariService;
     }
 
@@ -30,17 +30,19 @@ public class IslemYasaklariController {
         return "MKK İŞLEM YASAKLARI...";
     }
 
+
+    //@FeignClient ile alır
+    //IslemYasaklari'daki Json verileri gösterir
     @GetMapping("/tum-yasaklar")
     public ResponseEntity<List<IslemYasaklariDto>> getWebIslemYasaklari(){
         return new ResponseEntity<List<IslemYasaklariDto>>(islemYasaklariService.getWebIslemYasaklari(),HttpStatus.OK);
     }
 
-    @GetMapping("/get-web")
+    @GetMapping("/getStringByWeb")
     public ResponseEntity getByWeb() throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://ws.spk.gov.tr/IdariYaptirimlar/api/IslemYasaklari"; // Harici sitenin API URL'si
         String jsonResponse = restTemplate.getForObject(url, String.class);
-
         return ResponseEntity.ok(jsonResponse);
     }
 
@@ -55,12 +57,16 @@ public class IslemYasaklariController {
         }
     }
 
+
+    //DB'den alır
     @GetMapping("/get")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<List<IslemYasaklariDto>>getIslemYasaklari(){
+    public ResponseEntity<List<IslemYasaklariDto>> getIslemYasaklariByRepository(
+            @RequestParam (value = "pageNo",defaultValue = "1", required = false) int pageNo,
+            @RequestParam (value = "pageSize", defaultValue = "1",required = false) int pageSize){
         try {
             System.out.println("Başarılı");
-            return new ResponseEntity<>(islemYasaklariService.getIslemYasaklari(),HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(islemYasaklariService.getIslemYasaklariByRepository(pageNo,pageSize),HttpStatus.ACCEPTED);
         }catch (Exception e){
             System.out.println("Hatalı");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -80,13 +86,9 @@ public class IslemYasaklariController {
 
     @DeleteMapping("/delete/{id}")
     public String deleteIslemYasaklari(@RequestBody String onay, @PathVariable int id){
-        try {
-            //Postman'den "onay" text'i gelmeden silmez
-            islemYasaklariService.deleteIslemYasaklari(onay, id);
-            return "Delete Başarılı";
-        }catch (Exception e){
-            return "Delete Başarısız";
-        }
+        //Postman'den "onay" text'i gelmeden silmez
+        islemYasaklariService.deleteIslemYasaklari(onay, id);
+        return "Delete Başarılı";
     }
 
     @GetMapping("/detail/{id}")
@@ -94,9 +96,10 @@ public class IslemYasaklariController {
         return ResponseEntity.ok(islemYasaklariService.getDetail(id));
     }
 
-
-
-
-
+    @PostMapping("/add")
+    public ResponseEntity<IslemYasaklariDto> createDto(@RequestBody IslemYasaklariDto islemYasaklariDto){
+        System.out.println("kayıt girişi");
+        return new ResponseEntity<>(islemYasaklariService.createDto(islemYasaklariDto),HttpStatus.CREATED);
+    }
 
 }

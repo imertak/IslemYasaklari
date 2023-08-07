@@ -1,76 +1,18 @@
 package com.pokemonrewiev.api.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pokemonrewiev.api.client.IslemYasaklariClient;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
-import com.pokemonrewiev.api.mapper.IslemYasaklariMapper;
-import com.pokemonrewiev.api.repository.IslemYasaklariRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
-
-@Service
-public class IslemYasaklariService {
-    IslemYasaklariRepository islemYasaklariRepository;
-    IslemYasaklariMapper islemYasaklariMapper;
-    IslemYasaklariClient islemYasaklariClient;
-    
-
-    @Autowired
-    public IslemYasaklariService(IslemYasaklariRepository islemYasaklariRepository, IslemYasaklariMapper islemYasaklariMapper, IslemYasaklariClient islemYasaklariClient) {
-        this.islemYasaklariRepository = islemYasaklariRepository;
-        this.islemYasaklariMapper = islemYasaklariMapper;
-        this.islemYasaklariClient = islemYasaklariClient;
-    }
-
-    public List<IslemYasaklariDto> getWebIslemYasaklari() {
-        List<IslemYasaklariDto> islemYasaklariDtoList = new ArrayList<>();
-        islemYasaklariDtoList =  islemYasaklariClient.getWebIslemYasaklari();
-        return islemYasaklariDtoList;
-    }
-
-    public List<IslemYasaklari> createIslemYasaklari(List<IslemYasaklari> yasaklar){
-        return islemYasaklariRepository.saveAll(yasaklar);
-    }
-
-    public List<IslemYasaklariDto> getIslemYasaklari(){
-        List<IslemYasaklari> islemYasaklariList = islemYasaklariRepository.findAll();
-        return islemYasaklariList.stream().map(y -> islemYasaklariMapper.maptoDto(y)).collect(Collectors.toList());
-    }
-
-    public IslemYasaklari saveIslemYasaklari(IslemYasaklari islemYasaklari) {
-        return islemYasaklariRepository.save(islemYasaklari);
-    }
-
-    public void updateIslemYasaklari(String unvan ,int id){
-        IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
-        islemYasaklari.setUnvan(unvan);
-        islemYasaklariRepository.save(islemYasaklari);
-    }
-
-    public void deleteIslemYasaklari(String onay, int id){
-        //Postman'den "onay" text'i gelmeden silmez
-        if(onay.equals("onay")){
-            IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
-            islemYasaklariRepository.delete(islemYasaklari);
-        }
-    }
-
-    public IslemYasaklariDto getDetail(int id){
-        IslemYasaklari islemYasaklari = islemYasaklariRepository.getById(id);
-        IslemYasaklariDto islemYasaklariDto = new IslemYasaklariDto();
-        islemYasaklariDto=islemYasaklariMapper.maptoDto(islemYasaklari);
-        return islemYasaklariDto;
-    }
-
-
+public interface IslemYasaklariService {
+    public List<IslemYasaklariDto> getWebIslemYasaklari();
+    public List<IslemYasaklariDto> getIslemYasaklariByRepository(int pageNo, int pageSize);
+    public com.pokemonrewiev.api.entity.IslemYasaklari saveIslemYasaklari(com.pokemonrewiev.api.entity.IslemYasaklari islemYasaklari);
+    public void updateIslemYasaklari(String unvan ,int id);
+    public String deleteIslemYasaklari(String onay, int id);
+    public IslemYasaklariDto getDetail(int id);
+    public IslemYasaklariDto createDto(IslemYasaklariDto islemYasaklariDto);
+    public List<IslemYasaklari> createIslemYasaklari(List<IslemYasaklari> yasaklar);
 
 }

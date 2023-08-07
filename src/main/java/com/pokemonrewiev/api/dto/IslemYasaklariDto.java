@@ -1,5 +1,6 @@
 package com.pokemonrewiev.api.dto;
 
+import jakarta.persistence.Id;
 import lombok.Data;
 import org.springframework.http.HttpStatusCode;
 
