@@ -12,23 +12,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.lang.constant.Constable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Service
 public class IslemYasaklariServiceImpl implements IslemYasaklariService {
-    IslemYasaklariRepository islemYasaklariRepository;
-    IslemYasaklariMapper islemYasaklariMapper;
-    IslemYasaklariClient islemYasaklariClient;
 
     @Autowired
-    public IslemYasaklariServiceImpl(IslemYasaklariRepository islemYasaklariRepository, IslemYasaklariMapper islemYasaklariMapper, IslemYasaklariClient islemYasaklariClient) {
-        this.islemYasaklariRepository = islemYasaklariRepository;
-        this.islemYasaklariMapper = islemYasaklariMapper;
-        this.islemYasaklariClient = islemYasaklariClient;
-    }
+    IslemYasaklariRepository islemYasaklariRepository;
+    @Autowired
+    IslemYasaklariMapper islemYasaklariMapper;
+    @Autowired
+    IslemYasaklariClient islemYasaklariClient;
+
+
+
 
 
     @Override

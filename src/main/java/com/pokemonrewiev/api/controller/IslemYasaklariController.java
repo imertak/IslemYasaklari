@@ -1,6 +1,5 @@
 package com.pokemonrewiev.api.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
@@ -18,12 +17,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class IslemYasaklariController {
 
-    IslemYasaklariServiceImpl islemYasaklariService;
 
     @Autowired
-    public IslemYasaklariController(IslemYasaklariServiceImpl islemYasaklariService) {
-        this.islemYasaklariService = islemYasaklariService;
-    }
+    IslemYasaklariServiceImpl islemYasaklariService;
 
     @GetMapping()
     public String hello(){
