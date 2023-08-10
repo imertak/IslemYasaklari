@@ -28,13 +28,9 @@ public class IslemYasaklariServiceImpl implements IslemYasaklariService {
 
 
 
-
-
     @Override
     public List<IslemYasaklariDto> getWebIslemYasaklari() {
-        List<IslemYasaklariDto> islemYasaklariDtoList;
-        islemYasaklariDtoList =  islemYasaklariClient.getWebIslemYasaklari();
-        return islemYasaklariDtoList;
+        return islemYasaklariClient.getWebIslemYasaklari();
     }
 
 

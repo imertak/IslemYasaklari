@@ -1,4 +1,4 @@
-/*package com.pokemonrewiev.api.entity;
+package com.pokemonrewiev.api.entity;
 
 
 import jakarta.persistence.*;
@@ -13,5 +13,5 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-}*/
+    private String roleName;
+}

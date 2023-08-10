@@ -3,6 +3,7 @@ package com.pokemonrewiev.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pokemonrewiev.api.dto.IslemYasaklariDto;
 import com.pokemonrewiev.api.entity.IslemYasaklari;
+import com.pokemonrewiev.api.service.IslemYasaklariService;
 import com.pokemonrewiev.api.service.impl.IslemYasaklariServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class IslemYasaklariController {
 
 
     @Autowired
-    IslemYasaklariServiceImpl islemYasaklariService;
+    IslemYasaklariService islemYasaklariService;
 
     @GetMapping()
     public String hello(){
@@ -70,7 +71,7 @@ public class IslemYasaklariController {
         }
     }
 
-    @PutMapping("/unvan-update/{id}")
+    @PutMapping(" ")
     public String updateIslemYasaklari(@RequestBody String unvan, @PathVariable int id){
         try {
             islemYasaklariService.updateIslemYasaklari(unvan,id);
@@ -97,5 +98,6 @@ public class IslemYasaklariController {
         System.out.println("kayıt girişi");
         return new ResponseEntity<>(islemYasaklariService.createDto(islemYasaklariDto),HttpStatus.CREATED);
     }
+
 
 }
