@@ -12,7 +12,6 @@ public class IslemYasaklariMapper {
         IslemYasaklariDto islemYasaklariDto = new IslemYasaklariDto();
         islemYasaklariDto.setUnvan(islemYasaklari.getUnvan());
         islemYasaklariDto.setMkkSicilNo(islemYasaklari.getMkkSicilNo());
-        islemYasaklariDto.setPay(islemYasaklari.getPay());
         islemYasaklariDto.setPayKodu(islemYasaklari.getPayKodu());
         islemYasaklariDto.setKurulKararTarihi(islemYasaklari.getKurulKararTarihi());
         islemYasaklariDto.setKurulKararNo(islemYasaklari.getKurulKararNo());
@@ -23,7 +22,6 @@ public class IslemYasaklariMapper {
         IslemYasaklari islemYasaklari = new IslemYasaklari();
         islemYasaklari.setUnvan(islemYasaklariDto.getUnvan());
         islemYasaklari.setMkkSicilNo(islemYasaklariDto.getMkkSicilNo());
-        islemYasaklari.setPay(islemYasaklariDto.getPay());
         islemYasaklari.setPayKodu(islemYasaklariDto.getPayKodu());
         islemYasaklari.setKurulKararTarihi(islemYasaklariDto.getKurulKararTarihi());
         islemYasaklari.setKurulKararNo(islemYasaklariDto.getKurulKararNo());
