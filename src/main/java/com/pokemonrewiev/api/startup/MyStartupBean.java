@@ -91,14 +91,14 @@ public class MyStartupBean {
         roleRepository.save(role1);
 
         //ADMIN TANIMLAMA
-        //UserEntity user = new UserEntity();
-        //user.setUserName("ismeak");
-        //user.setPassword(passwordEncoder.encode("5858"));
-//
-        //Role role2 = roleRepository.findByRoleName("ADMIN");
-//
-        ////user.setRoles(Collections.singletonList(role2));
-        //userRepository.save(user);
+        UserEntity user = new UserEntity();
+        user.setUserName("ismeak");
+        user.setPassword(passwordEncoder.encode("5858"));
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        roleList.add(role1);
+        user.setRoles(roleList);
+        userRepository.save(user);
 
     }
 

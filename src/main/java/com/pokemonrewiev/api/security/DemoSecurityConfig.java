@@ -1,38 +1,28 @@
 package com.pokemonrewiev.api.security;
 
-import ch.qos.logback.core.joran.action.ActionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
+
 
 @Configuration
 public class DemoSecurityConfig {
 
     private CustomUserDetailService customUserDetailService;
-    private JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Autowired
-    public DemoSecurityConfig(CustomUserDetailService customUserDetailService, JwtAuthEntryPoint jwtAuthEntryPoint) {
+    public DemoSecurityConfig(CustomUserDetailService customUserDetailService) {
         this.customUserDetailService = customUserDetailService;
-        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+
     }
 
     @Bean
@@ -40,8 +30,7 @@ public class DemoSecurityConfig {
         httpSecurity.authorizeHttpRequests(configurer ->
                 configurer
                         .requestMatchers("/api/tum-yasaklar").permitAll()
-                        .requestMatchers("/api/auth/register").permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
         );
 
@@ -57,7 +46,7 @@ public class DemoSecurityConfig {
                 //.and()
                 //.sessionManagement()
                 //.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        //httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

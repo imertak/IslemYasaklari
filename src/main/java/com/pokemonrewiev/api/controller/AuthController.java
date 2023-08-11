@@ -65,12 +65,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUserName(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //String token = jwtGenerator.generateToken(authentication);
-        //return new ResponseEntity<AuthResponseDto>(new AuthResponseDto(token), HttpStatus.OK);
-        return new ResponseEntity<>("Giriş Başarılı", HttpStatus.OK);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<AuthResponseDto>(new AuthResponseDto(token), HttpStatus.OK);
     }
 
 }
