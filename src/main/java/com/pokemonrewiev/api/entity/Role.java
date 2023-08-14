@@ -1,9 +1,9 @@
 package com.pokemonrewiev.api.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @NoArgsConstructor
 @Data

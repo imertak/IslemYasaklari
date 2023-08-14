@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,10 +19,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class DemoSecurityConfig {
 
     private CustomUserDetailService customUserDetailService;
+    private JwtAuthEntryPoint authEntryPoint;
 
     @Autowired
-    public DemoSecurityConfig(CustomUserDetailService customUserDetailService) {
+    public DemoSecurityConfig(CustomUserDetailService customUserDetailService, JwtAuthEntryPoint authEntryPoint) {
         this.customUserDetailService = customUserDetailService;
+        this.authEntryPoint = authEntryPoint;
 
     }
 
@@ -41,11 +44,13 @@ public class DemoSecurityConfig {
         //disable CSRF (cross site request forgery)
         // in general not rquired for stateless REST ApIs that use POST, PUT, DELETE, and or PATCH
         httpSecurity.csrf(csrf -> csrf.disable());
-                //.exceptionHandling()
-                //.authenticationEntryPoint(jwtAuthEntryPoint)
-                //.and()
-                //.sessionManagement()
-                //.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        //httpSecurity.exceptionHandling()
+        //        .authenticationEntryPoint(authEntryPoint)
+        //        .and()
+        //        .sessionManagement()
+        //        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }

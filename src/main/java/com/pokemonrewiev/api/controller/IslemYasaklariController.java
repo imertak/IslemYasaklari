@@ -73,7 +73,7 @@ public class IslemYasaklariController {
         }
     }
 
-    @PutMapping(" ")
+    @PutMapping("update/{id}")
     public String updateIslemYasaklari(@RequestBody String unvan, @PathVariable int id){
         try {
             islemYasaklariService.updateIslemYasaklari(unvan,id);

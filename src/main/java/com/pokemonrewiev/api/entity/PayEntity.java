@@ -1,10 +1,8 @@
 package com.pokemonrewiev.api.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @ToString
+@Builder
 public class PayEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

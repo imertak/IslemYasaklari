@@ -1,7 +1,10 @@
 package com.pokemonrewiev.api.dto;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IslemYasaklariDto {
     private String unvan;
     private String mkkSicilNo;
