@@ -10,7 +10,6 @@ import com.pokemonrewiev.api.repository.RoleRepository;
 import com.pokemonrewiev.api.repository.UserRepository;
 import com.pokemonrewiev.api.security.JWTGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

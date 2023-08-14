@@ -45,7 +45,7 @@ public class IslemYasaklariServiceImpl implements IslemYasaklariService {
         PageRequest pageable = PageRequest.of(pageNo, pageSize);
         Page<IslemYasaklari> islemYasaklaris = islemYasaklariRepository.findAll(pageable);
         //List<IslemYasaklari> islemYasaklariList = islemYasaklariRepository.findAll();
-        return islemYasaklaris.stream().map(i -> islemYasaklariMapper.maptoDto(i)).collect(Collectors.toList());
+        return islemYasaklaris.stream().map(i -> islemYasaklariMapper.INSTANCE.mapToDto(i)).collect(Collectors.toList());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class IslemYasaklariServiceImpl implements IslemYasaklariService {
     public IslemYasaklariDto getDetail(int id){
         IslemYasaklari islemYasaklari = islemYasaklariRepository.findById(id).orElseThrow(()->new IslemYasaklariNotFoundException("Islem Yasaklari Bulunamadı..."));
         IslemYasaklariDto islemYasaklariDto = new IslemYasaklariDto();
-        islemYasaklariDto=islemYasaklariMapper.maptoDto(islemYasaklari);
+        islemYasaklariDto=islemYasaklariMapper.INSTANCE.mapToDto(islemYasaklari);
         return islemYasaklariDto;
     }
 
